@@ -9,11 +9,14 @@ app.use(cors());
 // Permet d'activer les variables d'environnement qui se trouvent dans le fichier `.env`  
 require('dotenv').config();
 
+// Import clé 
+const apiKey = process.env.API_KEY;
+
 // import axios
 const axios = require("axios");
 
-let comicData;
 
+let comicData;
 axios
 .get(`https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${apiKey}`) 
 .then((res) => {
@@ -23,10 +26,6 @@ axios
   console.log(error.message); // Affichera d'éventuelles erreurs, notamment en cas de problème de connexion Internet.
 });
 
-
-
-// Import clé 
-const apiKey = process.env.API_KEY;
 
 app.get("/", (req, res) => { // route en GET dont le chemin est /
   res.json(comicData); // réponse du serveur : jason comicData}

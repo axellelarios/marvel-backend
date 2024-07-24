@@ -17,11 +17,12 @@ const apiKey = process.env.API_KEY;
 const axios = require("axios");
 
 app.get("/", async (req, res) => { // route en GET dont le chemin est /
-  console.log("hello")
-  console.log(apiKey)
+  
   try {
-    const data = axios.get(`https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${apiKey}`);
+    const data = await axios.get(`https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${apiKey}`);
     res.status(200).json(data)
+    console.log("hello")
+    console.log(apiKey)
   } catch (err) {
       res.status(500).json({ message: 'Server error' })
   }

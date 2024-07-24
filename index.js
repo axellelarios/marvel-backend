@@ -20,16 +20,30 @@ const apiKey = process.env.API_KEY;
 // ROUTE COMICS
 app.get("/comics", async (req, res) => { // route en GET dont le chemin est /
   try {
-    const response = await axios.get(`https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${apiKey}`);
-    return res.status(200).json(response.data)
-  } catch (err) {
-       return res.status(401).send(err.message);
+    // - paramètres de recherche (titre et page)
+    console.log(req.query);
+    let query = `apiKey=${process.env.MARVEL_API_KEY}`;
+
+    if (req.query.title) {
+      query = query + `&title=${req.query.title}`;
+    }
+    if (req.query.page) {
+      query = query + `&skip=${(req.query.page - 1) * 100}`;
+    }
+
+    const response = await axios.get(
+      `https://lereacteur-marvel-api.herokuapp.com/comics?${query}`
+    );
+    console.log(response.data);
+    return res.status(200).json(response.data);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
   }
 });
 
 // ROUTE COMICS CHARACTERID
 app.get("/comics/:characterId", async (req, res) => { // route en GET dont le chemin est /
-  // J'initialise ma constante en récupérant le parametre de mon l'url
+  // J'initialise ma constante en récupérant le parametre characterId de mon l'url
   const characterId = req.params.characterId
 
   try {
@@ -37,6 +51,31 @@ app.get("/comics/:characterId", async (req, res) => { // route en GET dont le ch
     return res.status(200).json(response.data)
   } catch (err) {
        return res.status(401).send(err.message);
+  }
+});
+
+// ROUTE COMICS CHARACTERS
+app.get("/characters", async (req, res) => {
+  try {
+    //  - paramètre de recherche (nom)
+    // console.log(req.query.name);
+
+    let query = `apiKey=${process.env.MARVEL_API_KEY}`;
+
+    if (req.query.name) {
+      query = query + `&name=${req.query.name}`;
+    }
+    if (req.query.page) {
+      query = query + `&skip=${(req.query.page - 1) * 100}`;
+    }
+
+    const response = await axios.get(
+      `https://lereacteur-marvel-api.herokuapp.com/characters?${query}`
+    );
+    console.log(response.data);
+    return res.status(200).json(response.data);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
   }
 });
 

@@ -12,13 +12,13 @@ require('dotenv').config();
 // Import clé 
 const apiKey = process.env.API_KEY;
 
-console.log("hello")
-console.log(apiKey)
 
 // import axios
 const axios = require("axios");
 
 app.get("/", async (req, res) => { // route en GET dont le chemin est /
+  console.log("hello")
+  console.log(apiKey)
   try {
     const data = axios.get(`https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${apiKey}`);
     res.status(200).json(data)

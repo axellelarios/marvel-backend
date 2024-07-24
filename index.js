@@ -12,9 +12,12 @@ require('dotenv').config();
 // import axios
 const axios = require("axios");
 
+// Import clé 
+const apiKey = import.meta.env.API_KEY;
+
 app.get("/", (req, res) => { // route en GET dont le chemion est /
   axios
-  .get(`https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${API_KEY}`)
+  .get(`https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${apiKey}`)
   .then((response) => {
     console.log(response.data); // Affichera la réponse du serveur
     res.json({message: "It's live bitches!!"});
@@ -28,5 +31,5 @@ app.get("/", (req, res) => { // route en GET dont le chemion est /
 
 
 app.listen(process.env.PORT || 3200, () => {
-  console.log("Server started");
+  console.log("Server started");  
 });

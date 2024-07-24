@@ -15,23 +15,13 @@ const apiKey = process.env.API_KEY;
 // import axios
 const axios = require("axios");
 
-
-let comicData;
-
-axios
-.get(`https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=QiNfGGKViu0A9iDb`) 
-.then((res) => {
-  console.log(res)
-  comicData = res.comicData; 
-})
-.catch(error => {
-  console.log(error.message); // Affichera d'éventuelles erreurs
-});
-
-
-app.get("/", (req, res) => { // route en GET dont le chemin est /
-  console.log(comicData)
-  res.json(comicData); // réponse du serveur : json comicData}
+app.get("/", async (req, res) => { // route en GET dont le chemin est /
+  try {
+    const { data } = axios.get('https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${apiKey}');
+    res.status(200).json(data)
+  } catch (err) {
+      res.status(500).json({ message: 'Server error' })
+  }
 });
 
 

@@ -1,11 +1,9 @@
 const express = require("express"); // import du package express
-const app = express(); // création du serveur
-
-// import axios
+const cors = require("cors")
 const axios = require("axios");
 
 //le module cors permet d'autoriser ou non les demandes provenant de l'extérieur.
-const cors = require("cors")
+const app = express(); // création du serveur
 app.use(cors());
 
 // Variables DOTENV
@@ -15,8 +13,14 @@ require('dotenv').config();
 // Import clé 
 const apiKey = process.env.API_KEY;
 
-app.get("/", async (req, res) => { // route en GET dont le chemin est /
-  return res.json({message : "hello"})
+app.get("/", (req, res) => { // route en GET dont le chemin est /
+  try {
+    const data = axios.get(`https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=QiNfGGKViu0A9iDb`);
+    console.log(data)
+    return res.status(200).json(data)
+  } catch (err) {
+      res.status(500).json({ message: 'Server error' })
+  }
 });
 
 app.listen(process.env.PORT || 3200, () => {

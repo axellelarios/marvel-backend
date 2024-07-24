@@ -13,11 +13,11 @@ require('dotenv').config();
 const axios = require("axios");
 
 // Import clé 
-const apiKey = import.meta.env.API_KEY;
+const apiKey = process.env.API_KEY;
 
 app.get("/", (req, res) => { // route en GET dont le chemion est /
   axios
-  .get(`https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${apiKey}`)
+  .get(`https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${apiKey}`) 
   .then((response) => {
     console.log(response.data); // Affichera la réponse du serveur
     res.json({message: "It's live bitches!!"});

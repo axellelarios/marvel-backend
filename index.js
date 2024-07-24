@@ -12,21 +12,24 @@ require('dotenv').config();
 // import axios
 const axios = require("axios");
 
+let comicData;
+
+axios
+.get(`https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${apiKey}`) 
+.then((res) => {
+  comicData = res.comicData;
+})
+.catch(error => {
+  console.log(error.message); // Affichera d'éventuelles erreurs, notamment en cas de problème de connexion Internet.
+});
+
+
+
 // Import clé 
 const apiKey = process.env.API_KEY;
 
-app.get("/", (req, res) => { // route en GET dont le chemion est /
-  axios
-  .get(`https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${apiKey}`) 
-  .then((response) => {
-    console.log(response.data); // Affichera la réponse du serveur
-    res.json({message: "It's live bitches!!"});
-  })
-  .catch(error => {
-    console.log(error.message); // Affichera d'éventuelles erreurs, notamment en cas de problème de connexion Internet.
-  });
-
-  res.json({message : "Hi"}); // réponse du serveur : {message : "Hi"}
+app.get("/", (req, res) => { // route en GET dont le chemin est /
+  res.json(comicData); // réponse du serveur : jason comicData}
 });
 
 

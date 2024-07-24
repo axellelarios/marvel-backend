@@ -27,7 +27,7 @@ app.get("/comics", async (req, res) => { // route en GET dont le chemin est /
       query = query + `&title=${req.query.title}`;
     }
     if (req.query.limit) {
-      query = query + `&limit=${req.query.limit}`;
+      query = query + `?limit=${req.query.limit}`;
     }
     //if (req.query.page) {
     //  query = query + `&skip=${(req.query.page - 1) * 100}`;
@@ -66,7 +66,7 @@ app.get("/characters", async (req, res) => { // route en GET dont le chemin est 
       query = query + `&name=${req.query.name}`;
     }
     if (req.query.limit) {
-      query = query + `&limit=${req.query.limit}`;
+      query = query + `?limit=${req.query.limit}`;
     }
     const response = await axios.get(
       `https://lereacteur-marvel-api.herokuapp.com/characters?${query}`

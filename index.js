@@ -17,8 +17,9 @@ const axios = require("axios");
 
 
 let comicData;
+
 axios
-.get(`https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${apiKey}`) 
+.get(`https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=QiNfGGKViu0A9iDb`) 
 .then((res) => {
   console.log(res)
   comicData = res.comicData; 
@@ -29,6 +30,7 @@ axios
 
 
 app.get("/", (req, res) => { // route en GET dont le chemin est /
+  console.log(comicData)
   res.json(comicData); // réponse du serveur : json comicData}
 });
 

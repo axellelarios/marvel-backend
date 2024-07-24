@@ -12,6 +12,9 @@ require('dotenv').config();
 // Import clé 
 const apiKey = process.env.API_KEY;
 
+console.log("hello")
+console.log(apiKey)
+
 // import axios
 const axios = require("axios");
 

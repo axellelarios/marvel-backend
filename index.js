@@ -22,7 +22,7 @@ app.get("/comics", async (req, res) => { // route en GET dont le chemin est /
   try {
     // - paramètres de recherche (titre et page)
     console.log(req.query);
-    let query = `apiKey=${process.env.MARVEL_API_KEY}`;
+    let query = `apiKey=${apiKey}`;
 
     if (req.query.title) {
       query = query + `&title=${req.query.title}`;

@@ -17,10 +17,23 @@ app.use(express.json())
 // Import clé 
 const apiKey = process.env.API_KEY;
 
-
-app.get("/", async (req, res) => { // route en GET dont le chemin est /
+// ROUTE COMICS
+app.get("/comics", async (req, res) => { // route en GET dont le chemin est /
   try {
     const response = await axios.get(`https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${apiKey}`);
+    return res.status(200).json(response.data)
+  } catch (err) {
+       return res.status(401).send(err.message);
+  }
+});
+
+// ROUTE COMICS CHARACTERID
+app.get("/comics/:characterId", async (req, res) => { // route en GET dont le chemin est /
+  // J'initialise ma constante en récupérant le parametre de mon l'url
+  const characterId = req.params.characterId
+
+  try {
+    const response = await axios.get(`https://lereacteur-marvel-api.herokuapp.com/comics/${characterId}?apiKey=${apiKey}`);
     return res.status(200).json(response.data)
   } catch (err) {
        return res.status(401).send(err.message);

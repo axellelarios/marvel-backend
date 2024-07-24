@@ -20,15 +20,16 @@ let comicData;
 axios
 .get(`https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${apiKey}`) 
 .then((res) => {
-  comicData = res.comicData;
+  console.log(res)
+  comicData = res.comicData; 
 })
 .catch(error => {
-  console.log(error.message); // Affichera d'éventuelles erreurs, notamment en cas de problème de connexion Internet.
+  console.log(error.message); // Affichera d'éventuelles erreurs
 });
 
 
 app.get("/", (req, res) => { // route en GET dont le chemin est /
-  res.json(comicData); // réponse du serveur : jason comicData}
+  res.json(comicData); // réponse du serveur : json comicData}
 });
 
 

@@ -15,15 +15,8 @@ require('dotenv').config();
 // Import clé 
 const apiKey = process.env.API_KEY;
 
-console.log("hello")
-
 app.get("/", async (req, res) => { // route en GET dont le chemin est /
-  try {
-    const data = await axios.get(`https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${apiKey}`);
-    res.status(200).json(data)
-  } catch (err) {
-      res.status(500).json({ message: 'Server error' })
-  }
+  return res.json({message : "hello"})
 });
 
 app.listen(process.env.PORT || 3200, () => {

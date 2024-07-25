@@ -17,6 +17,7 @@ app.use(express.json())
 // Import de ma clé 
 const apiKey = process.env.API_KEY;
 
+
 // ROUTE COMICS
 app.get("/comics", async (req, res) => { // route en GET dont le chemin est /
   try {
@@ -35,6 +36,20 @@ app.get("/comics", async (req, res) => { // route en GET dont le chemin est /
 
     const response = await axios.get(
       `https://lereacteur-marvel-api.herokuapp.com/comics?${query}`
+    );
+    return res.status(200).json(response.data);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+});
+
+
+// ROUTE COMIC
+app.get("/comic/:comicId", async (req, res) => { // route en GET dont le chemin est /
+  try {
+    const comicId = req.params.comicId
+    const response = await axios.get(
+      `https://lereacteur-marvel-api.herokuapp.com/comic/${comicId}?apiKey=${apiKey}`
     );
     return res.status(200).json(response.data);
   } catch (error) {

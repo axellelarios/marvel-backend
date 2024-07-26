@@ -57,20 +57,6 @@ app.get("/comic/:comicId", async (req, res) => { // route en GET dont le chemin 
   }
 });
 
-// ROUTE COMICS CHARACTERID
-app.get("/comics/:characterId", async (req, res) => { // route en GET dont le chemin est /
-  // J'initialise ma constante en récupérant le parametre characterId de mon l'url
-  const characterId = req.params.characterId
-
-  try {
-    const response = await axios.get(`https://lereacteur-marvel-api.herokuapp.com/comics/${characterId}?apiKey=${apiKey}`);
-    return res.status(200).json(response.data)
-  } catch (err) {
-       return res.status(401).send(err.message);
-  }
-});
-
-
 // ROUTE COMICS CHARACTERS
 app.get("/characters", async (req, res) => { // route en GET dont le chemin est /
   try {
@@ -89,6 +75,20 @@ app.get("/characters", async (req, res) => { // route en GET dont le chemin est 
     return res.status(200).json(response.data);
   } catch (error) {
     return res.status(500).json({ message: error.message });
+  }
+});
+
+
+// ROUTE COMICS CHARACTERID
+app.get("/comics/:characterId", async (req, res) => { // route en GET dont le chemin est /
+  // J'initialise ma constante en récupérant le parametre characterId de mon l'url
+  const characterId = req.params.characterId
+
+  try {
+    const response = await axios.get(`https://lereacteur-marvel-api.herokuapp.com/character/${characterId}?apiKey=${apiKey}`);
+    return res.status(200).json(response.data)
+  } catch (err) {
+       return res.status(401).send(err.message);
   }
 });
 

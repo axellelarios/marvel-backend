@@ -80,12 +80,12 @@ app.get("/characters", async (req, res) => { // route en GET dont le chemin est 
 
 
 // ROUTE COMICS CHARACTERID
-app.get("/character/:characterId", async (req, res) => { // route en GET dont le chemin est /
+app.get("/comics/:characterId", async (req, res) => { // route en GET dont le chemin est /
   // J'initialise ma constante en récupérant le parametre characterId de mon l'url
   const characterId = req.params.characterId
 
   try {
-    const response = await axios.get(`https://lereacteur-marvel-api.herokuapp.com/character/${characterId}?apiKey=${apiKey}`);
+    const response = await axios.get(`https://lereacteur-marvel-api.herokuapp.com/comics/${characterId}?apiKey=${apiKey}`);
     return res.status(200).json(response.data)
   } catch (err) {
        return res.status(401).send(err.message);
